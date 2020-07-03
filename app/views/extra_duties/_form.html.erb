@@ -1,0 +1,17 @@
+<%= form_with(model: extra_duty, local: true) do |form| %>
+  <% if extra_duty.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(extra_duty.errors.count, "error") %> prohibited this extra_duty from being saved:</h2>
+
+      <ul>
+      <% extra_duty.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
