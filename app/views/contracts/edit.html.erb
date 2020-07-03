@@ -1,6 +1,36 @@
-<h1>Editing Contract</h1>
+<h1> <% Contract.name %> </h1>
+<br>
 
-<%= render 'form', contract: @contract %>
+  <%= form_for @contract do |f| %>
 
-<%= link_to 'Show', @contract %> |
-<%= link_to 'Back', contracts_path %>
+    <div class="row justify-content-center">
+        <div class="col-4">
+
+            <label>Post</label>
+            <%= f.select :post, [["Permanent"], ["Fixed-term"], ["Hourly"]],{}, class:"form-control" %>
+
+            <label>Start Date </label>
+            <%= f.date_field :startDate, class:"form-control" %>
+
+            <label>End Date </label>
+            <%= f.date_field :endDate, class:"form-control" %>
+
+        </div>
+
+        <div class="col-4">
+          <label>Grade</label>
+          <%= f.text_field :grade, class:"form-control" %>
+
+          <label>Salary</label>
+          <%= f.number_field :salary, class:"form-control" %>
+
+          <label>Probation Status</label>
+          <%= f.text_field :probationStatus, class:"form-control" %>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <%= f.submit "Save", class:"btn btn-primary giveMeSpace" %>
+        <%= link_to "Back", contracts_path, class: "btn btn-warning giveMeSpace" %>
+    </div>
+  <% end %>

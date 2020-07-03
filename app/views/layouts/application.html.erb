@@ -27,72 +27,52 @@
     </div>
 
     <div>
-    <row>
+      <row>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-            <a href="#" class="navbar-brand">Staff Tracking System</a>
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu"><span class="navbar-toggler-icon"></span></button>
+          <%= link_to "Staff Tracking System", contracts_path, class:"navbar-brand" %>
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu"><span class="navbar-toggler-icon"></span></button>
+
+          <div class="dropdown giveMeSpace">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="staffMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Staff
+              </button>
+              <div class="dropdown-menu" aria-labelledby="staffMenu">
+                <%= link_to  "Add new staff member", new_staff_path, class:"button dropdown-item" %>
+              </div>
+            </div>
 
             <div class="dropdown giveMeSpace">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="staffMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Staff
-                </button>
-                <div class="dropdown-menu" aria-labelledby="staffMenu">
-                  <a href="user" class="button dropdown-item">Add new staff member</a>
-                </div>
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="contractMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Contracts
+              </button>
+              <div class="dropdown-menu" aria-labelledby="contractMenu">
+                <%= link_to  "Add new contract", new_contract_path, class:"button dropdown-item" %>
               </div>
+            </div>
 
-              <div class="dropdown giveMeSpace">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="contractMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Contracts
-                </button>
-                <div class="dropdown-menu" aria-labelledby="contractMenu">
-                    <a href="contract" class="button dropdown-item">Add new contract</a>
-                </div>
-              </div>
+            <%= form_with url: contracts_url, method: :get, local: true, class:"form-inline ml-auto giveMeSpace" do |f| %>
 
-              <form id="navbarSearchBox" class="form-inline ml-auto giveMeSpace">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
+              <%= f.text_field :search, placeholder: "Search", class: "form-control"  %>
 
-              <div class="dropdown giveMeSpace">
-                <button class="btn btn-primary" type="button" id="logout">Logout</button>
-              </div>
+              <%= f.select :sort_by, options_for_select([["Select One", ""],
+                  "Contract Type",
+                  "Salary",
+                  "Grade"]
+                  ), {}, class:"btn btn-secondary dropdown-toggle"%>
+
+                  <%= f.submit "Submit", class: "giveMeSpace btn btn-primary" %>
+              <% end %>
+
+
+          <div class="dropdown giveMeSpace">
+            <%= link_to  "Logout", home_index_path, class:"btn btn-primary", style:"color: white" %>
+
+          </div>
 
         </nav>
     </row>
   </div>
-
-
-  <%= Contract.all.each do |c| %>
-  <div class="contractResult searchResult row align-items-center">
-
-    <div class="col-2">
-        <img src="https://raw.githubusercontent.com/0503177/contrack/master/public/img/contract.png" class="photoOutline">
-    </div>
-
-    <div class="col-6">
-        <div class="row">Employee: <%= c.staff.inspect %> </div>
-        <div class="row">Contract Type: <%= c.post %></div>
-        <div class="row">Salary: <%= c.salary %></div>
-        <div class="row">Grade: <%= c.grade %></div>
-    </div>
-
-    <div class="col-2">
-        <a class="btn btn-primary">View</a>
-    </div>
-
-    <div class="col-2">
-        <a class="btn btn-primary">Edit</a>
-    </div>
-
-  </div>
-  <% end %>
-
-
-
-    </div>
 
   <body>
     <%= yield %>

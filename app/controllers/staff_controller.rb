@@ -1,30 +1,41 @@
-class StaffsController < ApplicationController
+class StaffController < ApplicationController
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
-
-  # GET /staffs
-  # GET /staffs.json
+  before_action :accept_all_params
+  # GET /staff
+  # GET /staff.json
   def index
-    @staffs = Staff.all
+    @staff = Staff.all
   end
 
-  # GET /staffs/1
-  # GET /staffs/1.json
+  # GET /staff/1
+  # GET /staff/1.json
   def show
   end
 
-  # GET /staffs/new
+  # GET /staff/new
   def new
-    @staff = Staff.new
   end
 
-  # GET /staffs/1/edit
+  # GET /staff/1/edit
   def edit
+    @staff = Staff.find(params[:id])
+    puts params[:staff]
+
+    if(params[:staff])
+
+    @staff.update({name: params[:staff][:name],
+      address: params[:staff][:address],
+      postcode: params[:staff][:postcode],
+      dateOfBirth: params[:staff][:dateOfBirth]})
+
+    end
+
   end
 
-  # POST /staffs
-  # POST /staffs.json
+  # POST /staff
+  # POST /staff.json
   def create
-    @staff = Staff.new(staff_params)
+    @staff = Staff.new(staff_params[:staff])
 
     respond_to do |format|
       if @staff.save
@@ -37,26 +48,24 @@ class StaffsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /staffs/1
-  # PATCH/PUT /staffs/1.json
+  # PATCH/PUT /staff/1
+  # PATCH/PUT /staff/1.json
   def update
-    respond_to do |format|
-      if @staff.update(staff_params)
-        format.html { redirect_to @staff, notice: 'Staff was successfully updated.' }
-        format.json { render :show, status: :ok, location: @staff }
-      else
-        format.html { render :edit }
-        format.json { render json: @staff.errors, status: :unprocessable_entity }
-      end
+    if(params[:staff])
+
+    @staff.update({name: params[:staff][:name],
+      address: params[:staff][:address],
+      postcode: params[:staff][:postcode],
+      dateOfBirth: params[:staff][:dateOfBirth]})
     end
   end
 
-  # DELETE /staffs/1
-  # DELETE /staffs/1.json
+  # DELETE /staff/1
+  # DELETE /staff/1.json
   def destroy
     @staff.destroy
     respond_to do |format|
-      format.html { redirect_to staffs_url, notice: 'Staff was successfully destroyed.' }
+      format.html { redirect_to staff_url, notice: 'Staff was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,8 +76,12 @@ class StaffsController < ApplicationController
       @staff = Staff.find(params[:id])
     end
 
+    def accept_all_params
+      params.permit!
+    end
+
     # Only allow a list of trusted parameters through.
     def staff_params
-      params.fetch(:staff, {})
+      params.permit!
     end
 end

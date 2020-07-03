@@ -1,5 +1,53 @@
-<h1>New Staff</h1>
+<%= form_for Staff.new do |f| %>
 
-<%= render 'form', staff: @staff %>
+  <div class="row justify-content-center">
+      <div class="col-4">
 
-<%= link_to 'Back', staff_path %>
+
+          <label for="firstName">Name</label>
+          <%= f.text_field :name, class:"form-control" %>
+
+          <label for="dateOfBirth">Date of Birth</label>
+          <%= f.date_field :dateOfBirth, class:"form-control" %>
+
+          <label for="picture">Employee Picture</label>
+          <input type="file" id="picture" name="picture" accept="image/png, image/jpeg" class="form-control">
+
+      </div>
+
+      <div class="col-4">
+          <div>
+              <label for="homeAddress1">Address</label>
+              <%= f.text_field :address, class:"form-control" %>
+          </div>
+
+          <label for="homePostcode">Postcode</label>
+          <%= f.text_field :postcode, class:"form-control" %>
+
+          <div>
+              <label for="isFirstAider" style="word-wrap:break-word">
+                  <input id="isFirstAider" type="checkbox" />Employee is a registered first aider
+              </label>
+          </div>
+
+          <div>
+              <label for="isMentalFirstAider" style="word-wrap:break-word">
+                  <input id="isMentalFirstAider" type="checkbox" />Employee is a registered mental health first
+                  aider
+              </label>
+          </div>
+
+          <div>
+              <label for="isFireWarden" style="word-wrap:break-word">
+                  <input id="isFireWarden" type="checkbox" />Employee is a registered fire warden
+              </label>
+          </div>
+
+      </div>
+  </div>
+
+  <div class="row justify-content-center">
+      <%= f.submit "Save", class:"btn btn-primary giveMeSpace" %>
+      <%= link_to "Back", contracts_path, class: "btn btn-warning giveMeSpace" %>
+  </div>
+<% end %>

@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20200703000543) do
   enable_extension "plpgsql"
 
   create_table "budgets", force: :cascade do |t|
-    t.string "code"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -34,8 +33,12 @@ ActiveRecord::Schema.define(version: 20200703000543) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contracts_staff", id: false, force: :cascade do |t|
+    t.integer "contract_id"
+    t.integer "staff_id"
+  end
+
   create_table "departments", force: :cascade do |t|
-    t.string "code"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,6 +66,11 @@ ActiveRecord::Schema.define(version: 20200703000543) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "managers_staff", id: false, force: :cascade do |t|
+    t.integer "manager_id"
+    t.integer "staff_id"
+  end
+
   create_table "staff", force: :cascade do |t|
     t.string "name"
     t.date "dateOfBirth"
@@ -77,7 +85,9 @@ ActiveRecord::Schema.define(version: 20200703000543) do
     t.bigint "staff_types_id"
     t.bigint "manager_id"
     t.bigint "contracts_id"
+    t.bigint "departments_id"
     t.index ["contracts_id"], name: "index_staff_on_contracts_id"
+    t.index ["departments_id"], name: "index_staff_on_departments_id"
     t.index ["extra_duties_id"], name: "index_staff_on_extra_duties_id"
     t.index ["manager_id"], name: "index_staff_on_manager_id"
     t.index ["staff_types_id"], name: "index_staff_on_staff_types_id"
@@ -95,6 +105,7 @@ ActiveRecord::Schema.define(version: 20200703000543) do
   end
 
   add_foreign_key "staff", "contracts", column: "contracts_id"
+  add_foreign_key "staff", "departments", column: "departments_id"
   add_foreign_key "staff", "extra_duties", column: "extra_duties_id"
   add_foreign_key "staff", "managers"
   add_foreign_key "staff", "staff_types", column: "staff_types_id"

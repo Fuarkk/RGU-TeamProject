@@ -1,10 +1,19 @@
 class ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
+  before_action :accept_all_params
 
   # GET /contracts
   # GET /contracts.json
   def index
-    @contracts = Contract.all
+
+
+    @staff ||= Staff.all.order(:name)
+
+    if params[:search] != nil then
+      @staff = Staff.where("lower(name) like ?", "%#{params[:search].downcase}%").order(:name)
+    end
+
+
   end
 
   # GET /contracts/1
@@ -24,7 +33,16 @@ class ContractsController < ApplicationController
   # POST /contracts
   # POST /contracts.json
   def create
-    @contract = Contract.new(contract_params)
+    staff = Staff.find_by(name: params[:contract][:staff])
+
+    @contract = Contract.new(post: params[:contract][:post],
+                             startDate: params[:contract][:startDate],
+                             endDate: params[:contract][:endDate],
+                             grade: params[:contract][:grade],
+                             salary: params[:contract][:salary],
+                             annualLeave: params[:contract][:annualLeave])
+
+    staff.contracts << @contract
 
     respond_to do |format|
       if @contract.save
@@ -65,6 +83,10 @@ class ContractsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_contract
       @contract = Contract.find(params[:id])
+    end
+
+    def accept_all_params
+      params.permit!
     end
 
     # Only allow a list of trusted parameters through.

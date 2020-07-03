@@ -41,6 +41,33 @@
         phone:       "0135867845",
         email:       "a.white@rgu.ac.uk",
         jobTitle:    "Software Developer"
+      },
+      {
+        name:        "Finlay Bronson",
+        dateOfBirth: "09/11/1995",
+        address:     "56 Brimmond Avenue",
+        postcode:    "AB56 7PD",
+        phone:       "0135867845",
+        email:       "a.white@rgu.ac.uk",
+        jobTitle:    "Software Developer"
+      },
+      {
+        name:        "Ayla Legend",
+        dateOfBirth: "09/11/1995",
+        address:     "56 Brimmond Avenue",
+        postcode:    "AB56 7PD",
+        phone:       "0135867845",
+        email:       "a.white@rgu.ac.uk",
+        jobTitle:    "Software Developer"
+      },
+      {
+        name:        "Greggy Weggy",
+        dateOfBirth: "09/11/1995",
+        address:     "56 Brimmond Avenue",
+        postcode:    "AB56 7PD",
+        phone:       "0135867845",
+        email:       "a.white@rgu.ac.uk",
+        jobTitle:    "Software Developer"
       }
     ])
 
@@ -76,6 +103,57 @@
         grade:           "A",
         salary:          "16000",
         annualLeave:     25,
+        probationStatus: "Passed"
+      },
+      {
+        post:            "Permanent",
+        startDate:       "19/02/1995",
+        grade:           "D",
+        salary:          "28500",
+        annualLeave:     30,
+        probationStatus: "Passed"
+      },
+      {
+        post:            "Permanent",
+        startDate:       "05/07/2016",
+        endDate:         "01/12/2019",
+        grade:           "D",
+        salary:          "28500",
+        annualLeave:     30,
+        probationStatus: "Passed"
+      },
+      {
+        post:            "Permanent",
+        startDate:       "19/02/1995",
+        grade:           "D",
+        salary:          "28500",
+        annualLeave:     30,
+        probationStatus: "Passed"
+      },
+      {
+        post:            "Permanent",
+        startDate:       "05/07/2016",
+        endDate:         "01/12/2019",
+        grade:           "D",
+        salary:          "28500",
+        annualLeave:     30,
+        probationStatus: "Passed"
+      },
+      {
+        post:            "Permanent",
+        startDate:       "19/02/1995",
+        grade:           "D",
+        salary:          "28500",
+        annualLeave:     30,
+        probationStatus: "Passed"
+      },
+      {
+        post:            "Permanent",
+        startDate:       "05/07/2016",
+        endDate:         "01/12/2019",
+        grade:           "D",
+        salary:          "28500",
+        annualLeave:     30,
         probationStatus: "Passed"
       },
       {
@@ -130,7 +208,7 @@
       },
       {
         title: "Visiting Staff"
-      },
+      }
     ])
 
     Manager.create!([
@@ -164,5 +242,18 @@
 
 
     claire.manager = Manager.find_by(name: "Earl");
-    lucy.manager = Manager.find_by(name: "Tim");
-    adam.manager = Manager.find_by(name: "Bob");
+    lucy.manager  = Manager.find_by(name: "Tim");
+    adam.manager  = Manager.find_by(name: "Bob");
+
+
+    claire.contracts << Contract.find_by(id: 1)
+    claire.contracts << Contract.find_by(id: 3)
+    claire.contracts << Contract.find_by(id: 5)
+    claire.contracts << Contract.find_by(id: 7)
+
+    lucy.contracts << Contract.find_by(id:  2)
+    lucy.contracts << Contract.find_by(id:  4)
+    lucy.contracts << Contract.find_by(id:  6)
+    lucy.contracts << Contract.find_by(id:  9)
+
+    adam.contracts << Contract.find_by(id: 8)

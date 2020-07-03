@@ -12,6 +12,6 @@ class Staff < ApplicationRecord
   has_and_belongs_to_many :staff_types
   has_and_belongs_to_many :departments
 
-  has_many :contracts
+  has_and_belongs_to_many :contracts
 
 end
